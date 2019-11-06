@@ -1,14 +1,16 @@
 package src.com.irpf.repository.dao;
 
+import src.com.irpf.repository.dto.ContribuinteDTO;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ContribuinteDAODerby {
 
-    private static ContactDAODerby ref;
+    private static ContribuinteDAODerby ref;
 
-    private ContactDAODerby() throws Exception {
+    private ContribuinteDAODerby() throws Exception {
         try {
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
         } catch (ClassNotFoundException ex) {
@@ -24,9 +26,9 @@ public class ContribuinteDAODerby {
 
     }
 
-    public static ContactDAODerby getInstance() throws Exception {
+    public static ContribuinteDAODerby getInstance() throws Exception {
         if (ref == null)
-            ref = new ContactDAODerby();
+            ref = new ContribuinteDAODerby();
         return ref;
     }
 
@@ -34,15 +36,21 @@ public class ContribuinteDAODerby {
         return DriverManager.getConnection("jdbc:derby:derbyDB;create=true");
     }
 
-    @Override
-    public void insert(Person person) {
+    public void insert(ContribuinteDTO contribuinteDTO) {
         try {
             Connection con = getConnection();
-            String sql = "INSERT INTO CONTACTS VALUE (?,?)";
+            String sql = "INSERT INTO CONTRIBUINTE VALUE (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement sta = con.prepareStatement(sql);
-            sta.setString(1,person.getName());
-            sta.setString(2, person.getPhone());
+            sta.setString(1, contribuinteDTO.getNome());
+            sta.setString(2, contribuinteDTO.getCPF());
+            sta.setInt(3, contribuinteDTO.getIdade());
+            sta.setInt(4, contribuinteDTO.getDependentes());
+            sta.setBigDecimal(5, contribuinteDTO.getContribuicaoOficial());
+            sta.setBigDecimal(6, contribuinteDTO.getRendimentoTotal());
+            sta.setBigDecimal(7, contribuinteDTO.getValorIRPF());
+
             sta.executeUpdate(sql);
+
             sta.close();
             con.close();
         } catch (SQLException ex) {
@@ -50,7 +58,6 @@ public class ContribuinteDAODerby {
         }
     }
 
-    @Override
     public String findPhoneByName(String name) {
         try {
             Connection con = getConnection();
@@ -73,7 +80,6 @@ public class ContribuinteDAODerby {
         }
     }
 
-    @Override
     public List<String> findAllNamesSorted() {
 
         List<String> names = new ArrayList<>();
@@ -99,8 +105,7 @@ public class ContribuinteDAODerby {
         }
     }
 
-    @Override
-    public void insert(List<Person> people) {
+    public void insert(List<ContribuinteDTO> people) {
 
     }
 
@@ -108,9 +113,14 @@ public class ContribuinteDAODerby {
         try {
             Connection con = getConnection();
             Statement sta = con.createStatement();
-            String sql = "CREATE TABLE CONTACTS ("
-                    + "NAME VARCHAR(100) NOT NULL,"
-                    + "PHONE CHAR(11) NOT NULL"
+            String sql = "CREATE TABLE CONTRIBUINTE ("
+                    + "NOME VARCHAR(100) NOT NULL,"
+                    + "CPF VARCHAR(11) NOT NULL,"
+                    + "IDADE NUMBER(2) NOT NULL,"
+                    + "DEPENDENTES NUMBER(2),"
+                    + "CONTRIBUICAO_OFICIAL VARCHAR(11),"
+                    + "RENDIMENTO_TOTAL VARCHAR(11) NOT NULL,"
+                    + "VALOR_IRPF VARCHAR(11),"
                     + ")";
             sta.executeUpdate(sql);
             sta.close();

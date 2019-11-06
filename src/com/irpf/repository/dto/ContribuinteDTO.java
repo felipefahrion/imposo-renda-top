@@ -10,6 +10,8 @@ public class ContribuinteDTO {
     private BigDecimal contribuicaoOficial;
     private BigDecimal rendimentoTotal;
 
+    private BigDecimal valorIRPF;
+
     public ContribuinteDTO(String nome, String CPF, Integer idade, Integer dependentes, BigDecimal contribuicaoOficial, BigDecimal rendimentoTotal) {
         this.nome = nome;
         this.CPF = CPF;
@@ -65,5 +67,13 @@ public class ContribuinteDTO {
 
     public void setRendimentoTotal(BigDecimal rendimentoTotal) {
         this.rendimentoTotal = rendimentoTotal;
+    }
+
+    public BigDecimal getValorIRPF() {
+        return valorIRPF;
+    }
+
+    public void setValorIRPF(BigDecimal valorIRPF) {
+        this.valorIRPF = valorIRPF;
     }
 }
