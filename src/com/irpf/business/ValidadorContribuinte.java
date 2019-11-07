@@ -4,10 +4,10 @@ import java.util.regex.Matcher;
 
 public class ValidadorContribuinte {
 
-    final String VERIFICA_NOME = "/[A-Z][a-z]* [A-Z][a-z]*/";
-    final String VERIFICA_NUMERO_INTEIRO = "[0-9]";
+    private final String VERIFICA_NOME = "/[A-Z][a-z]* [A-Z][a-z]*/";
+    private final String VERIFICA_NUMERO_INTEIRO = "[0-9]";
 
-    public static void validaNome(String nome) throws Exception{
+    public void validaNome(String nome) throws Exception{
 
         Pattern patternNome = new Pattern(VERIFICA_NOME);
         Matcher matcherNome = patternNome.matcher(nome);
@@ -16,7 +16,7 @@ public class ValidadorContribuinte {
         else if(matcher.find() && nome.length < 3) throw Exception("Nome inválido.");
     }
 
-    public static void validaIdade(String idade) throws Exception {
+    public void validaIdade(String idade) throws Exception {
 
         Pattern patternIdade = new Pattern(VERIFICA_NUMERO_INTEIRO);
         Matcher matcherIdade = patternIdade.matcher(idade);
@@ -29,7 +29,7 @@ public class ValidadorContribuinte {
         }
     }
 
-    public static void validaNDependentes(String nDependentes) throws Exception{
+    public void validaNDependentes(String nDependentes) throws Exception{
 
         Pattern patternNDependentes = new Pattern(VERIFICA_NUMERO_INTEIRO);
         Matcher matcherNDependentes = patternNDependetes.matcher(nDependentes);
@@ -41,7 +41,7 @@ public class ValidadorContribuinte {
         }
     }
 
-    public static void validaCpf(String cpf){}
+    public void validaCpf(String cpf){}
 
 
 }
