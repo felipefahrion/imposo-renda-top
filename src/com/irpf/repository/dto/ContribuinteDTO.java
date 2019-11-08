@@ -12,13 +12,14 @@ public class ContribuinteDTO {
 
     private BigDecimal valorIRPF;
 
-    public ContribuinteDTO(String nome, String CPF, Integer idade, Integer dependentes, BigDecimal contribuicaoOficial, BigDecimal rendimentoTotal) {
+    public ContribuinteDTO(String nome, String CPF, Integer idade, Integer dependentes, BigDecimal contribuicaoOficial, BigDecimal rendimentoTotal, BigDecimal valorIRPF) {
         this.nome = nome;
         this.CPF = CPF;
         this.idade = idade;
         this.dependentes = dependentes;
         this.contribuicaoOficial = contribuicaoOficial;
         this.rendimentoTotal = rendimentoTotal;
+        this.valorIRPF = valorIRPF;
     }
 
     public String getNome() {
