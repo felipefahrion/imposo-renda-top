@@ -41,7 +41,22 @@ public class ValidadorContribuinte {
         }
     }
 
-    public void validaCpf(String cpf){}
+    public void validaCpf(String cpf) throws Exception{
+        Pattern patternCPF = new Pattern("/d{3}./d{3}-/d");
+        Matcher matcherCPF = patternCPF.matcher(cpf);
+
+        if(cpf = null) throw Excpetion("Necessário informar on número de cpf");
+        else if(!matcher.find()) throw Exception("CPF preenchido incorretamente, deve possuir o formato: xxx.xxx-xx");
+    }
+
+    public void validaContbPrevSocial(String contbPrevSocial) throws Exception{
+        Matcher nLetras  = (new Pattern(VERIFICA_NOME)).matcher(contbPrevSocial);
+        if(matcher.find()) throw Exception("Campo deve ser preenchido apenas com números");
+        try{
+            double valor = Double.valueOf(contbPrevSocial);
+        }
+        catch(Excetion e){ throw Exception("Contribuição previdenciária social é um campo númerico.");}
+    }
 
 
 }
