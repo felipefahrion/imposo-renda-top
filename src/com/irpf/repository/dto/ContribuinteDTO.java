@@ -9,8 +9,10 @@ public class ContribuinteDTO {
     private Integer dependentes;
     private BigDecimal contribuicaoOficial;
     private BigDecimal rendimentoTotal;
-
     private BigDecimal valorIRPF;
+
+    public ContribuinteDTO() {
+    }
 
     public ContribuinteDTO(String nome, String CPF, Integer idade, Integer dependentes, BigDecimal contribuicaoOficial, BigDecimal rendimentoTotal, BigDecimal valorIRPF) {
         this.nome = nome;

@@ -4,13 +4,16 @@ import src.com.irpf.repository.dao.ContribuinteDAODerby;
 import src.com.irpf.repository.dao.ContribuinteDAOInterface;
 import src.com.irpf.repository.dto.ContribuinteDTO;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class IrpfFacade {
 
     private ContribuinteDAOInterface contribuinteDAOInterface;
+    private CalculoIrpfFactory calculoIrpfFactory;
 
     public IrpfFacade() {
+        this.calculoIrpfFactory = CalculoIrpfFactory.getInstance();
         this.contribuinteDAOInterface = ContribuinteDAODerby.getInstance();
     }
 
@@ -26,5 +29,9 @@ public class IrpfFacade {
         return contribuinteDAOInterface.find(cpf);
     }
 
+    public BigDecimal calcularIrpf(ContribuinteDTO contribuinteDTO) {
+        CalculoIrpfInterface calcula = calculoIrpfFactory.calcula(contribuinteDTO);
+        return calcula.calculaImposto(contribuinteDTO);
+    }
 
 }

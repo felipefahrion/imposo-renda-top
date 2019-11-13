@@ -1,8 +1,11 @@
 package src.com.irpf.presentation.model;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+
 import java.math.BigDecimal;
 
-public class PessoaModel {
+public class CadastroModel implements Observable {
 
     private String nome;
     private String CPF;
@@ -10,14 +13,18 @@ public class PessoaModel {
     private Integer dependentes;
     private BigDecimal contribuicaoOficial;
     private BigDecimal rendimentoTotal;
+    private String tipoIrpf;
+    private String valorIrpf;
 
-    public PessoaModel(String nome, String CPF, Integer idade, Integer dependentes, BigDecimal contribuicaoOficial, BigDecimal rendimentoTotal) {
+    public CadastroModel(String nome, String CPF, Integer idade, Integer dependentes, BigDecimal contribuicaoOficial, BigDecimal rendimentoTotal, String tipoIrpf, String valorIrpf) {
         this.nome = nome;
         this.CPF = CPF;
         this.idade = idade;
         this.dependentes = dependentes;
         this.contribuicaoOficial = contribuicaoOficial;
         this.rendimentoTotal = rendimentoTotal;
+        this.tipoIrpf = tipoIrpf;
+        this.valorIrpf = valorIrpf;
     }
 
     public String getNome() {
@@ -66,5 +73,31 @@ public class PessoaModel {
 
     public void setRendimentoTotal(BigDecimal rendimentoTotal) {
         this.rendimentoTotal = rendimentoTotal;
+    }
+
+    public String getTipoIrpf() {
+        return tipoIrpf;
+    }
+
+    public void setTipoIrpf(String tipoIrpf) {
+        this.tipoIrpf = tipoIrpf;
+    }
+
+    public String getValorIrpf() {
+        return valorIrpf;
+    }
+
+    public void setValorIrpf(String valorIrpf) {
+        this.valorIrpf = valorIrpf;
+    }
+
+    @Override
+    public void addListener(InvalidationListener invalidationListener) {
+
+    }
+
+    @Override
+    public void removeListener(InvalidationListener invalidationListener) {
+
     }
 }

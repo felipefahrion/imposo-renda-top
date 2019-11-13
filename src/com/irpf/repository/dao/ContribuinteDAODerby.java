@@ -60,7 +60,7 @@ public class ContribuinteDAODerby implements ContribuinteDAOInterface {
     public ContribuinteDTO find(String cpf) {
         try {
             Connection con = getConnection();
-            String sql = "SELECT * FROM CONTACTS C WHERE CPF = ?";
+            String sql = "SELECT * FROM CONTRIBUINTE C WHERE CPF = ?";
             PreparedStatement sta = con.prepareStatement(sql);
             sta.setString(1, cpf);
             ResultSet resultSet = sta.executeQuery();
@@ -88,7 +88,7 @@ public class ContribuinteDAODerby implements ContribuinteDAOInterface {
     public List<ContribuinteDTO> findAll() {
         try {
             Connection con = getConnection();
-            String sql = "SELECT * FROM CONTACTS C";
+            String sql = "SELECT * FROM CONTRIBUINTE C";
             PreparedStatement sta = con.prepareStatement(sql);
             ResultSet resultSet = sta.executeQuery();
 
