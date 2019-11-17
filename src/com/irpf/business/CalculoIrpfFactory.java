@@ -1,6 +1,6 @@
-package src.com.irpf.business;
+package com.irpf.business;
 
-import src.com.irpf.repository.dto.ContribuinteDTO;
+import com.irpf.repository.dto.ContribuinteDTO;
 
 public class CalculoIrpfFactory {
 

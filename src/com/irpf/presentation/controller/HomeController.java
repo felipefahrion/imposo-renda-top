@@ -1,8 +1,8 @@
-package src.com.irpf.presentation.controller;
+package com.irpf.presentation.controller;
 
-import src.com.irpf.business.IrpfFacade;
-import src.com.irpf.presentation.model.CadastroModel;
-import src.com.irpf.repository.dto.ContribuinteDTO;
+import com.irpf.business.IrpfFacade;
+import com.irpf.presentation.model.CadastroModel;
+import com.irpf.repository.dto.ContribuinteDTO;
 
 import java.math.BigDecimal;
 
@@ -19,16 +19,15 @@ public class HomeController {
     public void calcularIrpf(CadastroModel cadastroModel) {
         ContribuinteDTO contribuinteDTO = getContribuinteDTO(cadastroModel);
         BigDecimal valorIrpf = irpfFacade.calcularIrpf(contribuinteDTO);
-        cadastroModel.setValorIrpf(valorIrpf.toString());
+        cadastroModel.setValorIrpf(valorIrpf);
     }
 
     private ContribuinteDTO getContribuinteDTO(CadastroModel cadastroModel) {
         ContribuinteDTO contribuinteDTO = new ContribuinteDTO();
-        contribuinteDTO.setCPF(cadastroModel.getCPF());
         contribuinteDTO.setContribuicaoOficial(cadastroModel.getContribuicaoOficial());
-        contribuinteDTO.setDependentes(cadastroModel.getDependentes());
+        contribuinteDTO.setDependentes(cadastroModel.getNumeroDependentes());
         contribuinteDTO.setIdade(cadastroModel.getIdade());
-        contribuinteDTO.setNome(cadastroModel.getNome());
+        contribuinteDTO.setNome(cadastroModel.getNomeCompleto());
         contribuinteDTO.setRendimentoTotal(cadastroModel.getRendimentoTotal());
         return contribuinteDTO;
     }

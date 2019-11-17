@@ -1,8 +1,8 @@
-package src.com.irpf.business;
+package com.irpf.business;
 
-import src.com.irpf.repository.dao.ContribuinteDAODerby;
-import src.com.irpf.repository.dao.ContribuinteDAOInterface;
-import src.com.irpf.repository.dto.ContribuinteDTO;
+import com.irpf.repository.dao.ContribuinteDAODerby;
+import com.irpf.repository.dao.ContribuinteDAOInterface;
+import com.irpf.repository.dto.ContribuinteDTO;
 
 import java.math.BigDecimal;
 import java.util.List;

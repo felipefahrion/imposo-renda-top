@@ -1,4 +1,4 @@
-package src.com.irpf.presentation.model;
+package com.irpf.presentation.model;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
@@ -7,40 +7,19 @@ import java.math.BigDecimal;
 
 public class CadastroModel implements Observable {
 
-    private String nome;
-    private String CPF;
+    private String nomeCompleto;
     private Integer idade;
-    private Integer dependentes;
+    private Integer numeroDependentes;
     private BigDecimal contribuicaoOficial;
     private BigDecimal rendimentoTotal;
-    private String tipoIrpf;
-    private String valorIrpf;
+    private BigDecimal valorIrpf;
 
-    public CadastroModel(String nome, String CPF, Integer idade, Integer dependentes, BigDecimal contribuicaoOficial, BigDecimal rendimentoTotal, String tipoIrpf, String valorIrpf) {
-        this.nome = nome;
-        this.CPF = CPF;
-        this.idade = idade;
-        this.dependentes = dependentes;
-        this.contribuicaoOficial = contribuicaoOficial;
-        this.rendimentoTotal = rendimentoTotal;
-        this.tipoIrpf = tipoIrpf;
-        this.valorIrpf = valorIrpf;
+    public String getNomeCompleto() {
+        return nomeCompleto;
     }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getCPF() {
-        return CPF;
-    }
-
-    public void setCPF(String CPF) {
-        this.CPF = CPF;
+    public void setNomeCompleto(String nomeCompleto) {
+        this.nomeCompleto = nomeCompleto;
     }
 
     public Integer getIdade() {
@@ -51,12 +30,12 @@ public class CadastroModel implements Observable {
         this.idade = idade;
     }
 
-    public Integer getDependentes() {
-        return dependentes;
+    public Integer getNumeroDependentes() {
+        return numeroDependentes;
     }
 
-    public void setDependentes(Integer dependentes) {
-        this.dependentes = dependentes;
+    public void setNumeroDependentes(Integer numeroDependentes) {
+        this.numeroDependentes = numeroDependentes;
     }
 
     public BigDecimal getContribuicaoOficial() {
@@ -75,19 +54,11 @@ public class CadastroModel implements Observable {
         this.rendimentoTotal = rendimentoTotal;
     }
 
-    public String getTipoIrpf() {
-        return tipoIrpf;
-    }
-
-    public void setTipoIrpf(String tipoIrpf) {
-        this.tipoIrpf = tipoIrpf;
-    }
-
-    public String getValorIrpf() {
+    public BigDecimal getValorIrpf() {
         return valorIrpf;
     }
 
-    public void setValorIrpf(String valorIrpf) {
+    public void setValorIrpf(BigDecimal valorIrpf) {
         this.valorIrpf = valorIrpf;
     }
 
@@ -99,5 +70,17 @@ public class CadastroModel implements Observable {
     @Override
     public void removeListener(InvalidationListener invalidationListener) {
 
+    }
+
+    @Override
+    public String toString() {
+        return "CadastroModel{" +
+                "nomeCompleto='" + nomeCompleto + '\'' +
+                ", idade=" + idade +
+                ", numeroDependentes=" + numeroDependentes +
+                ", contribuicaoOficial=" + contribuicaoOficial +
+                ", rendimentoTotal=" + rendimentoTotal +
+                ", valorIrpf=" + valorIrpf +
+                '}';
     }
 }

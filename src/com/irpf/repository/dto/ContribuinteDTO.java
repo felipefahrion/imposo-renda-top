@@ -1,4 +1,4 @@
-package src.com.irpf.repository.dto;
+package com.irpf.repository.dto;
 
 import java.math.BigDecimal;
 

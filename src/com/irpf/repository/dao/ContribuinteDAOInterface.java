@@ -1,6 +1,6 @@
-package src.com.irpf.repository.dao;
+package com.irpf.repository.dao;
 
-import src.com.irpf.repository.dto.ContribuinteDTO;
+import com.irpf.repository.dto.ContribuinteDTO;
 
 import java.util.List;
 

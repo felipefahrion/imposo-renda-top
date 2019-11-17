@@ -1,6 +1,6 @@
-package src.com.irpf.repository.dao;
+package com.irpf.repository.dao;
 
-import src.com.irpf.repository.dto.ContribuinteDTO;
+import com.irpf.repository.dto.ContribuinteDTO;
 
 import java.math.BigDecimal;
 import java.sql.*;
@@ -129,19 +129,19 @@ public class ContribuinteDAODerby implements ContribuinteDAOInterface {
             Connection con = getConnection();
             Statement sta = con.createStatement();
             String sql = "CREATE TABLE CONTRIBUINTE ("
-                    + "NOME VARCHAR(100) NOT NULL,"
-                    + "CPF VARCHAR(11) NOT NULL,"
-                    + "IDADE NUMBER(2) NOT NULL,"
-                    + "DEPENDENTES NUMBER(2),"
-                    + "CONTRIBUICAO_OFICIAL VARCHAR(11),"
-                    + "RENDIMENTO_TOTAL VARCHAR(11) NOT NULL,"
-                    + "VALOR_IRPF VARCHAR(11),"
-                    + ")";
+                    + " NOME VARCHAR(100) NOT NULL,"
+                    + " CPF VARCHAR(11) NOT NULL,"
+                    + " IDADE NUMERIC NOT NULL,"
+                    + " DEPENDENTES NUMERIC,"
+                    + " CONTRIBUICAO_OFICIAL VARCHAR(11),"
+                    + " RENDIMENTO_TOTAL VARCHAR(11) NOT NULL,"
+                    + " VALOR_IRPF VARCHAR(11)"
+                    + " )";
             sta.executeUpdate(sql);
             sta.close();
             con.close();
         } catch (SQLException ex) {
-            throw new Exception(ex.getMessage());
+//            throw new Exception(ex.getMessage());
         }
     }
 }
