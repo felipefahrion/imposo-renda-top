@@ -75,10 +75,65 @@ public class ContribuinteDTO {
         return "ContribuinteDTO{" +
                 "nome='" + nome + '\'' +
                 ", idade=" + idade +
-                ", dependentes=" + dependentes +
-                ", contribuicaoOficial=" + contribuicaoOficial +
-                ", rendimentoTotal=" + rendimentoTotal +
                 ", valorIRPF=" + valorIRPF +
                 '}';
+    }
+
+
+    public static final class ContribuinteDTOBuilder {
+        private String nome;
+        private Integer idade;
+        private Integer dependentes;
+        private BigDecimal contribuicaoOficial;
+        private BigDecimal rendimentoTotal;
+        private BigDecimal valorIRPF;
+
+        private ContribuinteDTOBuilder() {
+        }
+
+        public static ContribuinteDTOBuilder aContribuinteDTO() {
+            return new ContribuinteDTOBuilder();
+        }
+
+        public ContribuinteDTOBuilder withNome(String nome) {
+            this.nome = nome;
+            return this;
+        }
+
+        public ContribuinteDTOBuilder withIdade(Integer idade) {
+            this.idade = idade;
+            return this;
+        }
+
+        public ContribuinteDTOBuilder withDependentes(Integer dependentes) {
+            this.dependentes = dependentes;
+            return this;
+        }
+
+        public ContribuinteDTOBuilder withContribuicaoOficial(BigDecimal contribuicaoOficial) {
+            this.contribuicaoOficial = contribuicaoOficial;
+            return this;
+        }
+
+        public ContribuinteDTOBuilder withRendimentoTotal(BigDecimal rendimentoTotal) {
+            this.rendimentoTotal = rendimentoTotal;
+            return this;
+        }
+
+        public ContribuinteDTOBuilder withValorIRPF(BigDecimal valorIRPF) {
+            this.valorIRPF = valorIRPF;
+            return this;
+        }
+
+        public ContribuinteDTO build() {
+            ContribuinteDTO contribuinteDTO = new ContribuinteDTO();
+            contribuinteDTO.setNome(nome);
+            contribuinteDTO.setIdade(idade);
+            contribuinteDTO.setDependentes(dependentes);
+            contribuinteDTO.setContribuicaoOficial(contribuicaoOficial);
+            contribuinteDTO.setRendimentoTotal(rendimentoTotal);
+            contribuinteDTO.setValorIRPF(valorIRPF);
+            return contribuinteDTO;
+        }
     }
 }

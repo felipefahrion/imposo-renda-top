@@ -56,7 +56,7 @@ public class TelaHistoricoController implements Initializable {
         File f = new File("src/com/irpf/presentation/view/TelaHistorico.fxml");
         Parent fxmlParent = FXMLLoader.load(f.toURI().toURL());
 
-        stage.setScene(new Scene(fxmlParent, 400, 350));
+        stage.setScene(new Scene(fxmlParent, 420, 350));
         stage.show();
     }
 }

@@ -2,12 +2,14 @@ package com.irpf.repository.dao;
 
 import com.irpf.repository.dto.ContribuinteDTO;
 
+import javax.swing.*;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +60,11 @@ public class ContribuinteDAODerby implements ContribuinteDAOInterface {
             sta.executeUpdate();
             sta.close();
             con.close();
+        } catch (SQLIntegrityConstraintViolationException ex) {
+            JOptionPane optionPane = new JOptionPane("Já existe um usuário cadastrado com esse nome.", JOptionPane.ERROR_MESSAGE);
+            JDialog dialog = optionPane.createDialog("Failure");
+            dialog.setAlwaysOnTop(true);
+            dialog.setVisible(true);
         } catch (SQLException ex) {
             throw new RuntimeException(ex.getMessage());
         }
@@ -138,12 +145,12 @@ public class ContribuinteDAODerby implements ContribuinteDAOInterface {
             Connection con = getConnection();
             Statement sta = con.createStatement();
             String sql = "CREATE TABLE CONTRIBUINTE ("
-                    + " NOME VARCHAR(100) NOT NULL,"
+                    + " NOME VARCHAR(100) NOT NULL PRIMARY KEY,"
                     + " IDADE NUMERIC NOT NULL,"
                     + " DEPENDENTES NUMERIC,"
-                    + " CONTRIBUICAO_OFICIAL VARCHAR(11),"
-                    + " RENDIMENTO_TOTAL VARCHAR(11) NOT NULL,"
-                    + " VALOR_IRPF VARCHAR(11)"
+                    + " CONTRIBUICAO_OFICIAL VARCHAR(30),"
+                    + " RENDIMENTO_TOTAL VARCHAR(30) NOT NULL,"
+                    + " VALOR_IRPF VARCHAR(30)"
                     + " )";
             sta.executeUpdate(sql);
             sta.close();
