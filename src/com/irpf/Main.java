@@ -13,10 +13,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        File f = new File("src/com/irpf/presentation/view/telaCadastro.fxml");
+        File f = new File("src/com/irpf/presentation/view/TelaInicial.fxml");
         Parent fxmlParent = FXMLLoader.load(f.toURI().toURL());
 
-        stage.setScene(new Scene(fxmlParent, 500, 400));
+        stage.setScene(new Scene(fxmlParent, 450, 350));
         stage.show();
     }
 

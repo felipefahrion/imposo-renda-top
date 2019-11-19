@@ -12,7 +12,7 @@ public class CalculoIrpfFactory {
         return ref;
     }
 
-    public CalculoIrpfInterface calcula(ContribuinteDTO contribuinteDTO) {
+    public CalculoIrpfInterface getCalculadora(ContribuinteDTO contribuinteDTO) {
         if (contribuinteDTO.getDependentes() == null || contribuinteDTO.getContribuicaoOficial() == null){
             return new CalculoIrpfSimplificadoImp();
         } else {

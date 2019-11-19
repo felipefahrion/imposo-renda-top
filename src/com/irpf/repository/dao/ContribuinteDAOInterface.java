@@ -7,7 +7,10 @@ import java.util.List;
 public interface ContribuinteDAOInterface {
 
     void insert(ContribuinteDTO contribuinteDTO);
-    ContribuinteDTO find(String cpf);
+
+    List<ContribuinteDTO> find(String nomeParcial);
+
     void insert(List<ContribuinteDTO> people);
+
     List<ContribuinteDTO> findAll();
 }

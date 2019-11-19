@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 
 public class ContribuinteDTO {
     private String nome;
-    private String CPF;
     private Integer idade;
     private Integer dependentes;
     private BigDecimal contribuicaoOficial;
@@ -14,9 +13,8 @@ public class ContribuinteDTO {
     public ContribuinteDTO() {
     }
 
-    public ContribuinteDTO(String nome, String CPF, Integer idade, Integer dependentes, BigDecimal contribuicaoOficial, BigDecimal rendimentoTotal, BigDecimal valorIRPF) {
+    public ContribuinteDTO(String nome, Integer idade, Integer dependentes, BigDecimal contribuicaoOficial, BigDecimal rendimentoTotal, BigDecimal valorIRPF) {
         this.nome = nome;
-        this.CPF = CPF;
         this.idade = idade;
         this.dependentes = dependentes;
         this.contribuicaoOficial = contribuicaoOficial;
@@ -30,14 +28,6 @@ public class ContribuinteDTO {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public String getCPF() {
-        return CPF;
-    }
-
-    public void setCPF(String CPF) {
-        this.CPF = CPF;
     }
 
     public Integer getIdade() {
@@ -78,5 +68,17 @@ public class ContribuinteDTO {
 
     public void setValorIRPF(BigDecimal valorIRPF) {
         this.valorIRPF = valorIRPF;
+    }
+
+    @Override
+    public String toString() {
+        return "ContribuinteDTO{" +
+                "nome='" + nome + '\'' +
+                ", idade=" + idade +
+                ", dependentes=" + dependentes +
+                ", contribuicaoOficial=" + contribuicaoOficial +
+                ", rendimentoTotal=" + rendimentoTotal +
+                ", valorIRPF=" + valorIRPF +
+                '}';
     }
 }

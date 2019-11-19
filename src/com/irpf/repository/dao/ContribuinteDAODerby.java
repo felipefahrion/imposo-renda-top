@@ -3,7 +3,12 @@ package com.irpf.repository.dao;
 import com.irpf.repository.dto.ContribuinteDTO;
 
 import java.math.BigDecimal;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,16 +45,17 @@ public class ContribuinteDAODerby implements ContribuinteDAOInterface {
     public void insert(ContribuinteDTO contribuinteDTO) {
         try {
             Connection con = getConnection();
-            String sql = "INSERT INTO CONTRIBUINTE VALUE (?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO CONTRIBUINTE " +
+                    "(NOME, IDADE, DEPENDENTES, CONTRIBUICAO_OFICIAL, RENDIMENTO_TOTAL, VALOR_IRPF) " +
+                    "VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement sta = con.prepareStatement(sql);
             sta.setString(1, contribuinteDTO.getNome());
-            sta.setString(2, contribuinteDTO.getCPF());
-            sta.setInt(3, contribuinteDTO.getIdade());
-            sta.setInt(4, contribuinteDTO.getDependentes());
-            sta.setBigDecimal(5, contribuinteDTO.getContribuicaoOficial());
-            sta.setBigDecimal(6, contribuinteDTO.getRendimentoTotal());
-            sta.setBigDecimal(7, contribuinteDTO.getValorIRPF());
-            sta.executeUpdate(sql);
+            sta.setInt(2, contribuinteDTO.getIdade());
+            sta.setInt(3, contribuinteDTO.getDependentes());
+            sta.setBigDecimal(4, contribuinteDTO.getContribuicaoOficial());
+            sta.setBigDecimal(5, contribuinteDTO.getRendimentoTotal());
+            sta.setBigDecimal(6, contribuinteDTO.getValorIRPF());
+            sta.executeUpdate();
             sta.close();
             con.close();
         } catch (SQLException ex) {
@@ -57,28 +63,34 @@ public class ContribuinteDAODerby implements ContribuinteDAOInterface {
         }
     }
 
-    public ContribuinteDTO find(String cpf) {
+    public List<ContribuinteDTO> find(String nomeParcial) {
         try {
             Connection con = getConnection();
-            String sql = "SELECT * FROM CONTRIBUINTE C WHERE CPF = ?";
+            String sql = "SELECT * FROM CONTRIBUINTE C WHERE NOME LIKE ?";
             PreparedStatement sta = con.prepareStatement(sql);
-            sta.setString(1, cpf);
+            sta.setString(1, "%" + nomeParcial + "%");
             ResultSet resultSet = sta.executeQuery();
 
-            resultSet.next();
-            String nome = resultSet.getString("NOME");
-            String cpfResult = resultSet.getString("CPF");
-            int idade = resultSet.getInt("IDADE");
-            int dependentes = resultSet.getInt("DEPENDENTES");
-            String contribuicaoOficial = resultSet.getString("CONTRIBUICAO_OFICIAL");
-            String rendimentoTotal = resultSet.getString("RENDIMENTO_TOTAL");
-            String valorIrpf = resultSet.getString("VALOR_IRPF");
-
-            sta.executeUpdate(sql);
+            List<ContribuinteDTO> contribuinteDTOS = new ArrayList<>();
+            while (resultSet.next()) {
+                String nome = resultSet.getString("NOME");
+                Integer idade = resultSet.getInt("IDADE");
+                Integer dependentes = resultSet.getInt("DEPENDENTES");
+                String contribuicaoOficial = resultSet.getString("CONTRIBUICAO_OFICIAL");
+                String rendimentoTotal = resultSet.getString("RENDIMENTO_TOTAL");
+                String valorIrpf = resultSet.getString("VALOR_IRPF");
+                ContribuinteDTO contribuinte = new ContribuinteDTO(nome,
+                        idade,
+                        dependentes,
+                        contribuicaoOficial == null ? null : new BigDecimal(contribuicaoOficial),
+                        rendimentoTotal == null ? null : new BigDecimal(rendimentoTotal),
+                        valorIrpf == null ? null : new BigDecimal(valorIrpf));
+                contribuinteDTOS.add(contribuinte);
+            }
             sta.close();
             con.close();
 
-            return new ContribuinteDTO(nome, cpfResult, idade, dependentes, new BigDecimal(contribuicaoOficial), new BigDecimal(rendimentoTotal), new BigDecimal(valorIrpf));
+            return contribuinteDTOS;
         } catch (SQLException ex) {
             throw new RuntimeException(ex.getMessage());
         }
@@ -88,30 +100,27 @@ public class ContribuinteDAODerby implements ContribuinteDAOInterface {
     public List<ContribuinteDTO> findAll() {
         try {
             Connection con = getConnection();
-            String sql = "SELECT * FROM CONTRIBUINTE C";
-            PreparedStatement sta = con.prepareStatement(sql);
-            ResultSet resultSet = sta.executeQuery();
+            Statement sta = con.createStatement();
+            ResultSet resultSet = sta.executeQuery("SELECT * FROM CONTRIBUINTE C");
 
             List<ContribuinteDTO> contribuinteDTOS = new ArrayList<>();
             while (resultSet.next()) {
                 String nome = resultSet.getString("NOME");
-                String cpfResult = resultSet.getString("CPF");
                 int idade = resultSet.getInt("IDADE");
                 int dependentes = resultSet.getInt("DEPENDENTES");
                 String contribuicaoOficial = resultSet.getString("CONTRIBUICAO_OFICIAL");
                 String rendimentoTotal = resultSet.getString("RENDIMENTO_TOTAL");
                 String valorIrpf = resultSet.getString("VALOR_IRPF");
                 ContribuinteDTO contribuinte = new ContribuinteDTO(nome,
-                        cpfResult, idade, dependentes,
-                        new BigDecimal(contribuicaoOficial),
-                        new BigDecimal(rendimentoTotal),
-                        new BigDecimal(valorIrpf));
+                        idade,
+                        dependentes,
+                        contribuicaoOficial == null ? null : new BigDecimal(contribuicaoOficial),
+                        rendimentoTotal == null ? null : new BigDecimal(rendimentoTotal),
+                        valorIrpf == null ? null : new BigDecimal(valorIrpf));
                 contribuinteDTOS.add(contribuinte);
             }
-            sta.executeUpdate(sql);
             sta.close();
             con.close();
-
             return contribuinteDTOS;
         } catch (SQLException ex) {
             throw new RuntimeException(ex.getMessage());
@@ -130,7 +139,6 @@ public class ContribuinteDAODerby implements ContribuinteDAOInterface {
             Statement sta = con.createStatement();
             String sql = "CREATE TABLE CONTRIBUINTE ("
                     + " NOME VARCHAR(100) NOT NULL,"
-                    + " CPF VARCHAR(11) NOT NULL,"
                     + " IDADE NUMERIC NOT NULL,"
                     + " DEPENDENTES NUMERIC,"
                     + " CONTRIBUICAO_OFICIAL VARCHAR(11),"

@@ -17,20 +17,20 @@ public class IrpfFacade {
         this.contribuinteDAOInterface = ContribuinteDAODerby.getInstance();
     }
 
-    public void salvarContribuinte(ContribuinteDTO contribuinteDTO){
+    public void salvarContribuinte(ContribuinteDTO contribuinteDTO) {
         contribuinteDAOInterface.insert(contribuinteDTO);
     }
 
-    public List<ContribuinteDTO> buscarContribuintes(){
+    public List<ContribuinteDTO> buscarContribuintes() {
         return contribuinteDAOInterface.findAll();
     }
 
-    public ContribuinteDTO buscarContribuinte(String cpf){
-        return contribuinteDAOInterface.find(cpf);
+    public List<ContribuinteDTO> buscarContribuinte(String nomeParcial) {
+        return contribuinteDAOInterface.find(nomeParcial);
     }
 
     public BigDecimal calcularIrpf(ContribuinteDTO contribuinteDTO) {
-        CalculoIrpfInterface calcula = calculoIrpfFactory.calcula(contribuinteDTO);
+        CalculoIrpfInterface calcula = calculoIrpfFactory.getCalculadora(contribuinteDTO);
         return calcula.calculaImposto(contribuinteDTO);
     }
 
